@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 
 export async function csrfFetch(url, options = {}) {
     //set options.method to 'GET' if there is no method
@@ -25,4 +25,8 @@ export async function csrfFetch(url, options = {}) {
       //if the response status code is under 400, then return the response to the
       //next promise chain
       return res;
+}
+
+export function restoreCSRF() {
+    return csrfFetch('/api/csrf/restore');
 }
