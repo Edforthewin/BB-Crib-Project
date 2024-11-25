@@ -11,9 +11,9 @@ import { Modal, ModalProvider } from './context/Modal';
 
 const store = configureStore();
 
-if (process.env.NODE_ENV !== 'production') {
-  window.store = store;
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   window.store = store;
+// }
 
 if (import.meta.env.MODE !== 'production') {
   restoreCSRF();
@@ -32,4 +32,3 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     </ModalProvider>
   </React.StrictMode>
 );
-
