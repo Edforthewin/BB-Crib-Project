@@ -5,7 +5,7 @@
     justify-content: center;
 }
 
-.log-box {
+.overall-box {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -18,4 +18,35 @@
     display: flex;
     flex-direction: column;
     width: 520px;
+}
+
+.credentials-css {
+    border-radius: 20px;
+    border: 1px dotted #cccccc;
+    overflow: hidden;
+    margin-bottom: 20px;
+}
+
+.log-in-button {
+    background: #ac723cd8;
+    border-radius: 20px;
+    width: 100%;
+    height: 50px;
+    color: #ffffff;
+    cursor: pointer;
+}
+
+.input-box {
+    background: transparent;
+    border: 0;
+    width: 100%;
+    padding: 20px;
+}
+
+.input-box:focus {
+    outline: none;
+}
+
+.login-username {
+    border-bottom: 1px solid #cccccc;
 }
