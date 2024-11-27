@@ -1,0 +1,37 @@
+.overall-box {
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ color: #222;
+ background: #ffffff;
+ padding: 20px;
+ width: 50vw;
+}
+
+
+.form-css {
+    display: flex;
+    justify-content: center;
+    width: 80%;
+}
+
+.overall-signup-css {
+    margin: 10px;
+}
+
+.submit-button {
+    margin: 10px;
+}
+
+.submit-button > button {
+    width: 100px;
+    height: 40px;
+    border-radius: 5px;
+    color: #ffffff;
+    background: #bbbbbb;
+    cursor: pointer;
+}
+
+.submit-button > button:hover {
+    background: #d186416b;
+}
