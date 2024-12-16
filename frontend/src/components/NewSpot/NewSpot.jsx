@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal';
 import * as spotActions from '../../store/spots';
 import './NewSpot.css';
@@ -7,21 +8,24 @@ import './NewSpot.css';
 
 
 function NewSpotFormModal() {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
-    const [name, setName ] = useState('');
-    const [description, setDescription] = useState('');
-    const [price, setPrice] = useState('');
-    const [address, setAddress] = useState('');
-    const [city, setCity] = useState('');
-    const [state, setState] = useState('');
-    const [country, setCountry] = useState('');
-    const [lat, setLat] = useState('');
-    const [lng, setLng] = useState('');
-    const [url, setUrl] = useState('');
-    const [errors, setErrors] = useState({});
-    const preview = true;
     const { closeModal } = useModal();
-    const sessionUser = useSelector((state) => state.session.user);
+    const [errors, setErrors ] = useState({});
+
+    const [form, setForm ] = useState({
+        country: '',
+        address: '',
+        city: '',
+        state: '',
+        desription: '',
+        name: '',
+        price: '',
+        previewImage: '',
+        images: ['', '', '', ''],
+
+
+    });
 
     return (
 
