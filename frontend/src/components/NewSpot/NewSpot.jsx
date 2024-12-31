@@ -1,65 +1,187 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import { useModal } from '../../context/Modal';
+import { useHistory } from 'react-router-dom';
+// import { useModal } from '../../context/Modal';
 import * as spotActions from '../../store/spots';
 import './NewSpot.css';
 
 
 
 function NewSpotFormModal() {
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
-    const { closeModal } = useModal();
-    const [errors, setErrors ] = useState({});
+    const [name, setName] = useState('');
+    const [desription, setDescription] = useState('');
+    const [price, setPrice] = useState('');
+    const [address, setAddress] = useState('');
+    const [city, setCity] = useState('');
+    const [state, setState] = useState('');
+    const [country, setCountry] = useState('');
+    const lat = 47.823;
+    const lng = 123;
+    const [url, setUrl] = useState('');
+    // const { closeModal } = useModal();
+    const [errors, setErrors ] = useState([]);
+    const preview = true;
+    const history = useHistory();
+    const sessionUser = useSelector((state) => state.session.user);
 
-    const [form, setForm ] = useState({
-        country: '',
-        address: '',
-        city: '',
-        state: '',
-        desription: '',
-        name: '',
-        price: '',
-        previewImage: '',
-        images: ['', '', '', ''],
+    if(!sessionUser) return (
+        <div className='spot-welcome'>
+            <h2>Login to see this page!!!!</h2>
+        </div>
+    )
 
-
-    });
-
-    const formValidate = () => {
-        const errors = {};
-        if(!form.country) errors.country = 'Need that country';
-        if(!form.address) errors.address = 'Street addy is required';
-        if(!form.city) errors.city = 'City is required';
-        if(!form.state) errors.state = 'State is required';
-        if(form.desription.length < 30) errors.desription = 'Description needs 30 or more chars';
-        if(!form.name) errors.name = 'Name is required';
-        if(!form.price) errors.price = 'Price per night is required';
-        if(!form.previewImage) errors.previewImage = 'Preview image is required';
-        return errors;
-    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const errors = formValidate();
+        setErrors([]);
+        if(url.length > 256) setErrors(['The length of URL must be less than 256 characters'])
 
-        if(Object.keys(errors).length > 0) {
-            setErrors(errors);
-            return;
+
+    let createdSpot = await dispatch(spotActions.makeSpot({name, desription, price, address, country, city, state, lat, lng, url, preview}))
+        .catch(async res => {
+            const data = await res.json();
+            if (data & data.message) {
+                if (data.errors) {
+                    const errors = Object.values(data.errors);
+                    setErrors(errors);
+                } else {
+                    setErrors(data.message);
+                }
+            }
+        })
+
+        if (createdSpot) {
+            const id = createdSpot.id
+            history.push(`/spots/${id}`)
         }
 
-        try {
-            const newSpot = await dispatch(spotActions(form));
-            navigate(`/spots/${newSpot.id}`);
-        } catch(error) {
-            setErrors({ submit: error.message });
+   }
+
+   return (
+        <div className='newspot-main'>
+
+            <div className='newspot-container'>
+                <div className='newspot-welcome'>
+                    <h2>Host your crib</h2>
+            </div>
+            <form onSubmit={handleSubmit} className='spot-form'>
+            {errors.length > 0 &&
+            <ul>
+                {errors.map(error =>
+                    <li key={error}>{error}</li>)}
+            </ul>
         }
-    };
+        <div className='newspot-field'>
+            <label>
+                <input
+                type='text'
+                value={address}
+                onChange={(e) => setAddress(e.target.value)}
+                required
+                placeholder='Address'
+                className='input-fieldSpot'
 
-    return (
+              />
+            </label>
+        </div>
+        <div className='newspot-field'>
+            <label>
+                <input
+                type='text'
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+                required
+                placeholder='City'
+                className='input-fieldSpot'
 
-    )
+              />
+            </label>
+        </div>
+        <div className='newspot-field'>
+            <label>
+                <input
+                type='text'
+                value={state}
+                onChange={(e) => setState(e.target.value)}
+                required
+                placeholder='State'
+                className='input-fieldSpot'
+
+              />
+            </label>
+        </div>
+        <div className='newspot-field'>
+            <label>
+                <input
+                type='text'
+                value={country}
+                onChange={(e) => setCountry(e.target.value)}
+                required
+                placeholder='Country'
+                className='input-fieldSpot'
+
+              />
+            </label>
+        </div>
+        <div className='newspot-field'>
+            <label>
+                <input
+                type='text'
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                placeholder='Name the place'
+                className='input-fieldSpot'
+
+              />
+            </label>
+        </div>
+        <div className='newspot-field'>
+            <label>
+                <textarea
+                value={desription}
+                onChange={(e) => setDescription(e.target.value)}
+                required
+                placeholder='Description: Describe the place'
+                className='input-fieldSpot'
+
+              />
+            </label>
+        </div>
+        <div className='newspot-field'>
+            <label>
+                <input
+                type='number'
+                value={price}
+                onChange={(e) => setPrice(e.target.value)}
+                required
+                placeholder='$Price'
+                className='input-fieldSpot'
+                min='1'
+
+              />
+            </label>
+        </div>
+        <div className='newspot-field'>
+            <label>
+                <input
+                type='url'
+                value={url}
+                onChange={(e) => setUrl(e.target.value)}
+                required
+                placeholder='Image Link'
+                className='input-fieldSpot'
+
+              />
+            </label>
+        </div>
+        <button type='submit'>Agree & Submit</button>
+        </form>
+            </div>
+        </div>
+   )
 
 }
 

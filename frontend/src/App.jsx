@@ -29,7 +29,18 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <h1>Welcome!</h1>
+        element: (
+          <div className='welcome-box'>
+            <div className='welcome-head'>
+              <h1 className='welcome-title'>
+                Welcome Doods
+                <span className='second-title'>
+                  Find the finest places here
+                </span>
+              </h1>
+            </div>
+          </div>
+        )
       }
     ]
   }
