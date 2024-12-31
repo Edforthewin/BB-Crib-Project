@@ -1,11 +1,4 @@
-.login-box {
-    border-bottom: 1px solid #cccccc;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-}
-
-.overall-box {
+.login-container {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -14,39 +7,47 @@
     padding: 20px;
 }
 
-.form-css {
+.login-header {
+    border-bottom: 1px solid #cccccc;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.login-css {
     display: flex;
     flex-direction: column;
     width: 520px;
 }
 
-.credentials-css {
+.login-welcome {
+    padding: 20px;
+}
+.login-info {
     border-radius: 20px;
-    border: 1px dotted #cccccc;
+    border: 1px solid #cccccc;
     overflow: hidden;
     margin-bottom: 20px;
 }
-
-.log-in-button {
-    background: #ac723cd8;
-    border-radius: 20px;
-    width: 100%;
-    height: 50px;
-    color: #ffffff;
-    cursor: pointer;
-}
-
-.input-box {
+.login-input {
     background: transparent;
     border: 0;
     width: 100%;
     padding: 20px;
 }
 
-.input-box:focus {
+.login-input:focus {
     outline: none;
 }
 
-.login-username {
+.login-input-email {
     border-bottom: 1px solid #cccccc;
+}
+.login-btn {
+    background: #FF5A5F;
+    border-radius: 20px;
+    width: 100%;
+    height: 50px;
+    color: #ffffff;
+    cursor: pointer;
 }

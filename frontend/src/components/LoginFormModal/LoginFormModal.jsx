@@ -1,19 +1,26 @@
 import { useState } from 'react';
 import * as sessionActions from '../../store/session';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from '../../context/Modal';
+import { Redirect } from 'react-router-dom';
 import './LoginForm.css';
 
 function LoginFormModal() {
   const dispatch = useDispatch();
+  const sessionUser = useSelector((state) => state.session.user);
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors, setErrors] = useState([]);
   const { closeModal } = useModal();
+
+  if(sessionUser) return (
+    <Redirect to="/" />
+  );
+
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors({});
+    setErrors([]);
     return dispatch(sessionActions.login({ credential, password }))
       .then(closeModal)
       .catch(async (res) => {
@@ -25,37 +32,51 @@ function LoginFormModal() {
   };
 
   return (
-    <div className='overall-box'>
-       <div className='login-box'>
-       <h1>Log In</h1>
+    <div className='login-container'>
+       <div className='login-header'>
+       <h2>Log In</h2>
        </div>
-      <form onSubmit={handleSubmit} className='form-css'>
-        <div className='credentials-css'>
-        <label>
-          Username or Email
-          <input
-            className='input-box login-username'
-            type="text"
-            value={credential}
-            onChange={(e) => setCredential(e.target.value)}
-            required
-          />
-        </label>
+      <form onSubmit={handleSubmit} className='login-css'>
+        <div className='login-welcome'>
+          <h3>Welcome to BB Cribs</h3>
         </div>
-        <label>
-          Password
-          <input
-            className='input-box'
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-        <button className='log-in-button' type="submit">Log In</button>
+
+        {errors.length > 0 &&
+          <ul>
+             {errors.length.map(error =>
+               <li key={error}>{error}</li>)}
+          </ul>
+        }
+
+        <div className='login-info'>
+           <div className='login-name'>
+                <label>
+                   <input
+                    type='text'
+                    value={credential}
+                    onChange={(e) => setCredential(e.target.value)}
+                    required
+                    placeholder='username/email'
+                    className='login-input login-input-email'
+                   />
+                </label>
+           </div>
+           <div className='login-password'>
+              <label>
+                <input
+                    type='password'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                    placeholder='password'
+                    className='login-input'
+                  />
+              </label>
+           </div>
+        </div>
+        <div className='login-button'>
+            <button className='login-btn' type='submit'>Log in</button>
+        </div>
       </form>
     </div>
   );
