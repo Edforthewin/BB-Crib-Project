@@ -1,0 +1,71 @@
+.managespot-div {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.managespot-page {
+    margin: 40px;
+    display: flex;
+    flex-direction: column;
+}
+
+.managespot-container {
+    display: grid;
+    grid-template-columns: 1fr 0.8fr 1fr;
+    gap: 20px;
+    height: 250px;
+}
+.managespot-welcome {
+    margin-left: 80px;
+    margin-bottom: 20px;
+    padding-left: 50px;
+}
+
+.managespot-name {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+.managespot-name > a, .managespot-name> a:link,.managespot-name > a:visited   {
+    text-decoration: none;
+    background-color: transparent;
+ color: #FF5A5F;
+    ;
+}
+.managespot-name:hover {
+    font-weight: 700;
+}
+.managespot-change {
+    display: flex;
+    flex-direction: row;
+    margin-left: 50px;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+}
+
+
+.button-update {
+    color: #502e1e;
+    border:none;
+    border-radius:10px;
+    padding:10px;
+    font-weight: 700;
+    width: 80px;
+    height: 40px;
+    background: #886126;
+    cursor: pointer;
+}
+
+.button-update:hover {
+    background: #5f4722;
+
+}
+
+.update {
+    margin-right: 10px;
+}
