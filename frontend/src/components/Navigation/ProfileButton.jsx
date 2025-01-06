@@ -1,77 +1,102 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
-import { FaUserAstronaut } from "react-icons/fa";
 import * as sessionActions from '../../store/session';
-import OpenModalMenuItem from './OpenModalMenuItem';
-import LoginFormModal from '../LoginFormModal/LoginFormModal'
-import SignupFormModal from '../SignupFormModal/SignupFormModal';
+import { Link } from 'react-router-dom';
+import './ProfileButton.css';
 
-function ProfileButton({ user }) {
+
+function ProfileButton({ user, setLogin, setShowModal }) {
   const dispatch = useDispatch();
   const [showMenu, setShowMenu] = useState(false);
-  const ulRef = useRef();
 
-  const toggleMenu = (e) => {
-    e.stopPropagation(); // Keep from bubbling up to document and triggering closeMenu
-    setShowMenu(!showMenu);
-  };
+  const onClickMenuButton = (e) => {
+    e.stopPropagation();
+    if (showMenu) {
+      setShowMenu(false);
+      return;
+    }
+    setShowMenu(true);
+  }
 
   useEffect(() => {
-    if (!showMenu) return;
-
+    if(!showMenu) {
+      return;
+    }
     const closeMenu = (e) => {
-      if (!ulRef.current.contains(e.target)) {
-        setShowMenu(false);
-      }
-    };
+      e.stopPropagation();
+      setShowMenu(false);
+    }
 
-    document.addEventListener('click', closeMenu);
+    document.addEventListener("click", closeMenu);
 
-    return () => document.removeEventListener("click", closeMenu);
+    return () => document.removeEventListener("click", closeMenu)
+
   }, [showMenu]);
-
-  const closeMenu = () => setShowMenu(false);
 
   const logout = (e) => {
     e.preventDefault();
     dispatch(sessionActions.logout());
-    closeMenu();
   };
-
-  const ulClassName = "profile-dropdown" + (showMenu ? "" : " hidden");
+  const handleDemoButton = (e) => {
+    e.preventDefault();
+    return dispatch(sessionActions.login({
+      credential: "Demo-lition",
+      password: 'password'
+    }))
+      .then(() => setShowModal(false));
+  }
 
   return (
     <>
-      <button onClick={toggleMenu}>
-        <FaUserAstronaut />
-      </button>
-      <ul className={ulClassName} ref={ulRef}>
-        {user ? (
-          <>
-            <li>{user.username}</li>
-            <li>{user.firstName} {user.lastName}</li>
-            <li>{user.email}</li>
-            <li>
-              <button onClick={logout}>Log Out</button>
-            </li>
-          </>
-        ) : (
-          <>
-            <OpenModalMenuItem
-              itemText="Log In"
-              onItemClick={closeMenu}
-              modalComponent={<LoginFormModal />}
-            />
-            <OpenModalMenuItem
-              itemText="Sign Up"
-              onItemClick={closeMenu}
-              modalComponent={<SignupFormModal />}
-            />
-          </>
-        )}
-      </ul>
+      <div className='profile-button'>
+          <button onClick={onClickMenuButton}>
+          <i className='fa-solid fa-bars menu-button'></i>
+            <i className='fas fa-user-circle'></i>
+          </button>
+      </div>
+      {showMenu && (user ?
+        <div className='dropdown'>
+            <ul className='profile-dropdown'>
+                <div className='dropdown-user'>
+                    <div>
+                      Hello, {user.firstname}
+                    </div>
+                    <div>
+                       {user.email}
+                    </div>
+                </div>
+                <div>
+                    <Link to='/hosting' className='hosting'>Manage Listing</Link>
+                </div>
+                <div className='dropdown-link'>
+                  <button onClick={logout} className='dropdown-button'>Sign out</button>
+                </div>
+            </ul>
+        </div>: (
+          <div className='dropdown'>
+            <ul className='profile-dropdown'>
+                <li>
+                    <button onClick={() => {
+                      setLogin(true)
+                      setShowModal(true)
+                    }} className='dropdown-button'>Login</button>
+                </li>
+                <li>
+                    <button onClick={() => {
+                        setLogin(false)
+                        setShowModal(true)
+                    }} className='dropdown-button'>SignUp</button>
+                </li>
+                <li>
+                    <button onClick={handleDemoButton} className='dropdown-button'>Demo User</button>
+                </li>
+            </ul>
+          </div>
+        )
+      )}
     </>
-  );
+  )
+
 }
 
 export default ProfileButton;
