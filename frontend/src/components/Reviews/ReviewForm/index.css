@@ -3,7 +3,7 @@
     flex-direction: column;
     align-items: center;
     color: #222;
-    background: #ffffff;
+    background: #441c0ad0;
     padding: 20px;
     width: 520px;
 }
@@ -31,7 +31,7 @@
     font-weight: 700;
     width: 80px;
     height: 40px;
-    background: #FF5A5F;
+    background: #ad7b0e6b;
     margin-right: 10px;
     cursor: pointer;
 }
