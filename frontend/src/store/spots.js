@@ -7,6 +7,7 @@ const DETAIL_SPOT = 'spots/detailSpot';
 const USER_SPOT = 'spots/userSpots';
 const EDIT_SPOT = 'spots/editSpots';
 const FILTER_SPOTS = 'spots/filterSpots';
+const LOAD_DETAIL_SPOT = 'spots/loadDetailSpot';
 
 
 
@@ -28,6 +29,13 @@ export function deleteSpot(spotId) {
     return {
         type: DELETE_SPOT,
         spotId
+    }
+}
+
+export function displayDetailedSpot(spot) {
+    return {
+        type: LOAD_DETAIL_SPOT,
+        spot
     }
 }
 
@@ -147,6 +155,12 @@ export const spotFilter = (query) => async (dispatch) => {
         const data = await res.json();
         dispatch(filterSpots(data));
         return data;
+}
+
+export const fetchOneSpot = (spotId) => async (dispatch) => {
+    const response = await fetch(`/api/spots/${spotId}`);
+    const data = await response.json();
+    dispatch(displayDetailedSpot(data));
 }
 
 let initialState = {
