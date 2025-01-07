@@ -33,6 +33,11 @@ function ReviewForm(props) {
             }
         });
     }
+
+    const handleCancelButton = (e) => {
+        e.preventDefault();
+        modal();
+    }
     return (
         <div className='reviewform-container'>
             <div className='reviewform-welcome'>
@@ -42,10 +47,40 @@ function ReviewForm(props) {
                 <div>
                     {errors.length > 0 &&
                         <ul>
-                            {errors.map()}
+                            {errors.map(error =>
+                                <li key={error}>{error}</li>)}
                         </ul>
-
                     }
+                </div>
+                <div className='review-content'>
+                    <div className='reviewForm-rating'>
+                        <label> Rating point:
+                            <input
+                                type='number'
+                                value={rating}
+                                onChange={(e) => setRating(e.target.value)}
+                                min="1"
+                                max="5"
+                                required
+                            />
+                        </label>
+                    </div>
+                    <div className='reviewform-description'>
+                        <label>
+                            <textarea
+                                placeholder='Share the experience you had at this crib'
+                                value={review}
+                                onChange={(e) => setReview(e.target.value)}
+                                className='input-field'
+                                required
+                            >
+                            </textarea>
+                        </label>
+                    </div>
+                    <div className='review-button'>
+                        <button type='submit' className='button-post'>Post</button>
+                        <button onClick={handleCancelButton} className='button-cancel'>Cancel</button>
+                    </div>
                 </div>
             </form>
         </div>
