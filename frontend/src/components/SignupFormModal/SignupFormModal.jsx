@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-// import { Navigate } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { useModal } from '../../context/Modal'
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
@@ -20,7 +19,7 @@ function SignupFormModal() {
 
   if(sessionUser) {
     return (
-      <Redirect to='/' />
+      <Navigate to='/' />
     )
   }
 

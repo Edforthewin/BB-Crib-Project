@@ -6,7 +6,7 @@ import { useState} from 'react'
 import { Modal } from '../../context/Modal';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
-import NewSpot from '../NewSpot';
+import NewSpot from '../NewSpot/NewSpot';
 import logo from './BB-cribz.png';
 
 import LabelledButton from '../LabelledButton';

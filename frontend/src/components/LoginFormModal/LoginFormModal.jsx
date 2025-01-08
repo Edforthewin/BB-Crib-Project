@@ -2,7 +2,7 @@ import { useState } from 'react';
 import * as sessionActions from '../../store/session';
 import { useDispatch, useSelector } from 'react-redux';
 import { useModal } from '../../context/Modal';
-import { Redirect } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import './LoginForm.css';
 
 function LoginFormModal() {
@@ -14,7 +14,7 @@ function LoginFormModal() {
   const { closeModal } = useModal();
 
   if(sessionUser) return (
-    <Redirect to="/" />
+    <Navigate to="/" />
   );
 
 

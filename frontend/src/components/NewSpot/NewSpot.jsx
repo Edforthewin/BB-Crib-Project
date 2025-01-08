@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 // import { useModal } from '../../context/Modal';
 import * as spotActions from '../../store/spots';
 import './NewSpot.css';
@@ -23,7 +23,7 @@ function NewSpotFormModal() {
     // const { closeModal } = useModal();
     const [errors, setErrors ] = useState([]);
     const preview = true;
-    const history = useHistory();
+    const history = useNavigate();
     const sessionUser = useSelector((state) => state.session.user);
 
     if(!sessionUser) return (
