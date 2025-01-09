@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import * as spotAction from '../../../store/spots';
 
 const SearchBox = ({onClose}) => {
@@ -8,7 +8,7 @@ const SearchBox = ({onClose}) => {
     const [maxPrice, setMaxPrice] = useState("");
     const [error, setError] = useState("");
     const dispatch = useDispatch();
-    const history = useHistory();
+    const navigate = useNavigate();
     const closeBox = () => {
         onClose();
     }
@@ -25,7 +25,7 @@ const SearchBox = ({onClose}) => {
             dispatch(spotAction.spotFilter({ minPrice, maxPrice}))
                 .then(() => {
                     onClose();
-                    history.push("/filtered-spots");
+                    navigate.push("/filtered-spots");
                 }).catch(async (error) => {
                     setError(error);
                 })

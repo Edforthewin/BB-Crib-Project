@@ -7,6 +7,7 @@ import SignupFormModal from './components/SignupFormModal/SignupFormModal';
 import NewSpotFormModal  from './components/NewSpot/NewSpot';
 import  SpotDetail  from './components/Listing-Spots/ListingSpotDetail';
 import  UserSpots  from './components/UserSpots';
+import ListingSpotsBoi from './components/Listing-Spots/ListingSpot';
 import Footer from './components/Footer';
 import './index.css'
 
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Footer/>
+        element:<ListingSpotsBoi/> && <Footer/>
       },
       {
         path: '/signup',

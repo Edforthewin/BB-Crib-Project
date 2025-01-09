@@ -8,7 +8,7 @@ import './NewSpot.css';
 
 
 function NewSpotFormModal() {
-    // const navigate = useNavigate();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const [name, setName] = useState('');
     const [desription, setDescription] = useState('');
@@ -23,7 +23,6 @@ function NewSpotFormModal() {
     // const { closeModal } = useModal();
     const [errors, setErrors ] = useState([]);
     const preview = true;
-    const history = useNavigate();
     const sessionUser = useSelector((state) => state.session.user);
 
     if(!sessionUser) return (
@@ -54,7 +53,7 @@ function NewSpotFormModal() {
 
         if (createdSpot) {
             const id = createdSpot.id
-            history.push(`/spots/${id}`)
+            navigate.push(`/spots/${id}`)
         }
 
    }
