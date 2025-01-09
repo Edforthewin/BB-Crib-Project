@@ -20,7 +20,7 @@ function Navigation({ isLoaded }) {
   return (
     <div className='navigation'>
       <div className='bb-crib-logo'>
-        <NavLink exact to='/'><img src={logo} alt='logo' style={{width:120, height:80}} /></NavLink>
+        <NavLink to='/'><img src={logo} alt='logo' style={{width:120, height:80}} /></NavLink>
       </div>
       <div className='navigation-mid'>
           <div className='search-container'>
