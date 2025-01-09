@@ -7,6 +7,8 @@ import SignupFormModal from './components/SignupFormModal/SignupFormModal';
 import NewSpotFormModal  from './components/NewSpot/NewSpot';
 import  SpotDetail  from './components/Listing-Spots/ListingSpotDetail';
 import  UserSpots  from './components/UserSpots';
+// import Search from './components/Navigation/Search'
+import FilterSpots from './components/Listing-Spots/FilterSpots';
 import ListingSpotsBoi from './components/Listing-Spots/ListingSpot';
 import Footer from './components/Footer';
 import './index.css'
@@ -22,10 +24,10 @@ function Layout() {
   }, [dispatch]);
 
   return (
-    <>
+    <div className='page'>
       <Navigation isLoaded={isLoaded} />
       {isLoaded && <Outlet />}
-    </>
+    </div>
   );
 }
 
@@ -52,6 +54,10 @@ const router = createBrowserRouter([
       {
         path: '/hosting',
         element: <UserSpots/>
+      },
+      {
+        path: '/filtered-spots',
+        element: <FilterSpots/>
       }
     ]
   }

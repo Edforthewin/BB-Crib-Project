@@ -4,6 +4,7 @@ import { allSpots } from "../../store/spots";
 import { Link } from 'react-router-dom';
 import SpotHead from './SpotHead';
 import Spinner from '../CssLoader';
+import './ListingSpot.css';
 
 function ListingSpotsBoi() {
     const dispatch = useDispatch();
