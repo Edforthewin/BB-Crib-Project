@@ -37,7 +37,7 @@ const router = createBrowserRouter([
         element: <Footer/>
       },
       {
-        path: 'signup',
+        path: '/signup',
         element: <SignupFormModal/>
       },
       {
