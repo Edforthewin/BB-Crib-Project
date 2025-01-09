@@ -81,7 +81,7 @@
     border: none;
     cursor: pointer;
     outline: none;
-    background: #FF385C;
+    background: #312b0b;
 }
 .button-search:hover {
     text-decoration: none;
@@ -97,7 +97,7 @@
     cursor: pointer;
 }
 .link-content:hover {
-    color: #FF5A5F;
+    color: #703817e1;
 }
 
 
