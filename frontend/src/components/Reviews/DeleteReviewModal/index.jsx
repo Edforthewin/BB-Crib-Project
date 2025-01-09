@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../../../context/Modal';
-import { DeleteReviewForm } from './DeleteReviewForm';
+import  DeleteReviewForm  from './DeleteReviewForm';
 
 function DeleteReviewModal({reviewId, spotId}) {
     const [showModal, setShowModal] = useState(false);

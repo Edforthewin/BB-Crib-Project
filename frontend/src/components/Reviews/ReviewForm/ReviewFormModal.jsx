@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../../../context/Modal';
-import { ReviewForm } from '.'
+import  ReviewForm  from './index'
 
 function ReviewSpotModal({ spotId }) {
     const [showModal, setShowModal] = useState(false);

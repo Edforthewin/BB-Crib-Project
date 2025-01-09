@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Modal } from '../../context/Modal';
-import { EditSpotForm } from './EditSpot';
+import  EditSpotForm  from './EditSpot';
 
 
 export default function DeleteSpotModal({ spot }) {
