@@ -1,13 +1,13 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import ProfileButton from './ProfileButton';
-import './Navigation.css';
 import { useState} from 'react'
 import { Modal } from '../../context/Modal';
+import ProfileButton from './ProfileButton';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import NewSpot from '../NewSpot/NewSpot';
 import logo from './BB-cribz.png';
+import './Navigation.css';
 
 import LabelledButton from '../LabelledButton';
 
