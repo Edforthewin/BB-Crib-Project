@@ -1,5 +1,5 @@
 import { csrfFetch } from './csrf';
-import { showSpotDetails } from './spots'
+import { fetchOneSpot } from './spots'
 
 
 const POST_REVIEW = 'reviews/postReview';
@@ -51,7 +51,7 @@ export const newReview = (spotId, review) => async (dispatch) => {
     });
     if(res.ok) {
         const data = await res.json();
-        dispatch(showSpotDetails(spotId));
+        dispatch(fetchOneSpot(spotId));
         dispatch(allSpotReviews(spotId));
         return data
     }

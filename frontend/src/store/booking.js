@@ -103,8 +103,9 @@ function bookingsReducer(state = initialState, action) {
             newState = deepCopy(state)
             const bookings = action.bookings.Bookings;
             for (let booking of bookings) {
-                newState.user[booking.id] = booking
+                newState.user[booking.id] = booking;
             }
+            return newState
         }
 
          case LOAD_SPOTBOOKINGS: {
