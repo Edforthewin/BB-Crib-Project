@@ -6,10 +6,10 @@ import ProfileButton from './ProfileButton';
 import SignupFormModal from '../SignupFormModal/SignupFormModal';
 import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import NewSpot from '../NewSpot/NewSpot';
+import LabelledButton from '../LabelledButton/index';
 import logo from './BB-cribz.png';
 import './Navigation.css';
 
-import LabelledButton from '../LabelledButton';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
@@ -64,7 +64,6 @@ function Navigation({ isLoaded }) {
               {login ? <LoginFormModal setShowModal={setShowModal}/> : <SignupFormModal setShowModal={setShowModal}/>}
           </Modal>
       )}
-
     </div>
   );
 }

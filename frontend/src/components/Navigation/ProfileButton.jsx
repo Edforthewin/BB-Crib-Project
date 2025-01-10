@@ -35,11 +35,11 @@ function ProfileButton({ user, setLogin, setShowModal }) {
 
   const logout = (e) => {
     e.preventDefault();
-    dispatch(sessionActions.logout());
+    dispatch(sessionActions.userLogout());
   };
   const handleDemoButton = (e) => {
     e.preventDefault();
-    return dispatch(sessionActions.login({
+    return dispatch(sessionActions.userLogin({
       credential: "Demo-lition",
       password: 'password'
     }))
@@ -67,6 +67,9 @@ function ProfileButton({ user, setLogin, setShowModal }) {
                 </div>
                 <div>
                     <Link to='/hosting' className='hosting'>Manage Listing</Link>
+                </div>
+                <div className="dropdown-link">
+                            <Link to='/bookings' className="hosting">My bookings</Link>
                 </div>
                 <div className='dropdown-link'>
                   <button onClick={logout} className='dropdown-button'>Sign out</button>
