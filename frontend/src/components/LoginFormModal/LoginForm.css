@@ -14,7 +14,7 @@
     justify-content: center;
 }
 
-.login-css {
+.login-form {
     display: flex;
     flex-direction: column;
     width: 520px;
@@ -43,8 +43,8 @@
 .login-input-email {
     border-bottom: 1px solid #cccccc;
 }
-.login-btn {
-    background: #4d310d;
+.login-button {
+    background: #422407;
     border-radius: 20px;
     width: 100%;
     height: 50px;
