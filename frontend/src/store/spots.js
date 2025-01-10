@@ -78,9 +78,9 @@ export const allSpots = () => async (dispatch) => {
 };
 
 
-export const makeSpot = spot => async (dispatch) => {
+export const makeSpot = (spot) => async (dispatch) => {
     const { name, description, address, city, country, state, lat, lng, price, url, preview } = spot;
-    const res = await csrfFetch('/api/spots', {
+    const res = await csrfFetch(`/api/spots`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -168,7 +168,7 @@ let initialState = {
     oneSpot: {}
 }
 
-const spotReducer = (state = initialState, action) => {
+const spotsReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case LOAD_All_SPOTS: {
@@ -225,4 +225,4 @@ const spotReducer = (state = initialState, action) => {
     }
 }
 
-export default spotReducer
+export default spotsReducer
