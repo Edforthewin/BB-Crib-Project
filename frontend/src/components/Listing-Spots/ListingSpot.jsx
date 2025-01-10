@@ -23,7 +23,7 @@ function ListingSpotsBoi() {
         <div className='spots-container'>
             {spots?.length > 0 && spots.map(spot => (
                 <Link to={`/spots/${spot.id}`} key={spot.id}>
-                    <div key={spot.id} className='spot-card'>
+                    <div key={spot.id} className='spot-card'> {spot.id}
                         <div className='spot-image'>
                             <img src={spot.previewImage} alt='spot'/>
                         </div>

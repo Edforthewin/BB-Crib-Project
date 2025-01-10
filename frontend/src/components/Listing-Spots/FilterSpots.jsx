@@ -1,6 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-// import { allSpots } from "../../store/spots";
 import SpotHead from "./SpotHead";
 import './ListingSpot.css';
 
@@ -17,7 +16,7 @@ function FilterSpots() {
             <div className={spots?.length > 0 ? "spots-container" : "no-spots-container"}>
             {   spots?.length > 0 && spots.map(spot => (
                     <Link to={`/spots/${spot.id}`} key={spot.id}>
-                        <div key={spot.id} className='spot-card'>
+                        <div key={spot.id} className='spot-card'> {spot.id}
                             <div className='spot-image'>
                                 <img src={spot.previewImage} alt='spot'/>
                             </div>

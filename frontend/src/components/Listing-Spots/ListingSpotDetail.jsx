@@ -3,6 +3,7 @@ import { fetchOneSpot } from '../../store/spots';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import * as reviewsAction from '../../store/review';
+import * as bookingAction from '../../store/booking'
 import ReviewSpotModal from "../Reviews/ReviewForm/ReviewFormModal";
 import DeleteReviewModal from "../Reviews/DeleteReviewModal";
 import './ListingSpotDetail.css';
@@ -13,6 +14,7 @@ function SpotDetail() {
     const spot = spotObj.singleSpot;
     const reviewObj = useSelector(state => state.reviews);
     const spotReviews = Object.values(reviewObj.spot);
+    // const spotBooking = useSelector(state => state.bookings.spot)
     const { spotId } = useParams();
     let sum = 0;
     let avgRating = 0;
@@ -28,6 +30,10 @@ function SpotDetail() {
     useEffect(() => {
         dispatch(fetchOneSpot(spotId));
         dispatch(reviewsAction.allSpotReviews(spotId))
+    }, [dispatch, spotId]);
+
+    useEffect(() => {
+        dispatch(bookingAction.fetchSpotBookings(spotId));
     }, [dispatch, spotId]);
 
     if (spot && spot.statusCode) return (

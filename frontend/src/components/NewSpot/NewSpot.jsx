@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-// import { useModal } from '../../context/Modal';
 import * as spotActions from '../../store/spots';
 import './NewSpot.css';
 
@@ -20,14 +19,13 @@ function NewSpotFormModal() {
     const lat = 47.823;
     const lng = 123;
     const [url, setUrl] = useState('');
-    // const { closeModal } = useModal();
     const [errors, setErrors ] = useState([]);
     const preview = true;
     const sessionUser = useSelector((state) => state.session.user);
 
     if(!sessionUser) return (
         <div className='spot-welcome'>
-            <h2>Login to see this page!!!!</h2>
+            <h2>Login to see this page!</h2>
         </div>
     )
 
@@ -143,7 +141,7 @@ function NewSpotFormModal() {
                 value={desription}
                 onChange={(e) => setDescription(e.target.value)}
                 required
-                placeholder='Description: Describe the place'
+                placeholder='Description: Describe the crib...'
                 className='input-fieldSpot'
 
               />
