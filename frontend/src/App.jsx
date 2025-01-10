@@ -6,11 +6,10 @@ import Navigation from './components/Navigation/Navigation';
 import SignupFormModal from './components/SignupFormModal/SignupFormModal';
 import NewSpotFormModal  from './components/NewSpot/NewSpot';
 import  SpotDetail  from './components/Listing-Spots/ListingSpotDetail';
-import  UserSpots  from './components/UserSpots';
-// import Search from './components/Navigation/Search'
+import  UserSpots  from './components/UserSpots/index';
 import FilterSpots from './components/Listing-Spots/FilterSpots';
 import ListingSpotsBoi from './components/Listing-Spots/ListingSpot';
-import Footer from './components/Footer';
+import Footer from './components/Footer/index';
 import './index.css'
 
 function Layout() {
