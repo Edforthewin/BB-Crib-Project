@@ -10,6 +10,7 @@ import  UserSpots  from './components/UserSpots/index';
 import FilterSpots from './components/Listing-Spots/FilterSpots';
 import ListingSpotsBoi from './components/Listing-Spots/ListingSpot';
 import Footer from './components/Footer/index';
+import UseProfile from './components/UserProfile/UserProfile';
 import './index.css'
 
 function Layout() {
@@ -57,6 +58,10 @@ const router = createBrowserRouter([
       {
         path: '/filtered-spots',
         element: <FilterSpots/>
+      },
+      {
+        path: '/bookings',
+        element: <UseProfile/>
       }
     ]
   }
