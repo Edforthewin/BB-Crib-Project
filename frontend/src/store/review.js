@@ -78,7 +78,7 @@ let initialState = {
 }
 
 
-const reviewReducer = (state = initialState, action) => {
+const reviewsReducer = (state = initialState, action) => {
     let newState;
     switch (action.type) {
         case All_SPOT_REVIEWS: {
@@ -99,4 +99,4 @@ const reviewReducer = (state = initialState, action) => {
 }
 
 
-export default reviewReducer;
+export default reviewsReducer;
