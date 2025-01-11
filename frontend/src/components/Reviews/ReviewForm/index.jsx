@@ -15,7 +15,7 @@ function ReviewForm(props) {
     const handleSubmit = async (e) => {
         e.preventDefault();
         setErrors([]);
-        if (!sessionUser) return setErrors(['Please login to this spot'])
+        if (!sessionUser) return setErrors(['Please login to rate this spot'])
             const info = {
                 stars: rating, review
         }
