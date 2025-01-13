@@ -21,7 +21,7 @@ function NewSpotFormModal() {
     const [previewImage, setPreviewImage] = useState('');
     const [lat, setLat] = useState('');
     const [lng, setLng] = useState('');
-    const [imageUrls, setImageUrls] = useState('');
+    const [imageUrls, setImageUrls] = useState(['', '', '', '']);
     const [errors, setErrors ] = useState({});
 
 
