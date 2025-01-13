@@ -1,42 +1,35 @@
-import { csrfFetch } from './csrf';
+import { csrfFetch, restoreCSRF } from './csrf';
 import { fetchOneSpot } from './spots'
 
 
-const POST_REVIEW = 'reviews/postReview';
-const DELETE_REVIEW = 'reviews/deleteReview';
-const All_SPOT_REVIEWS = 'reviews/allSpotReviews';
+export const POST_REVIEW = 'reviews/postReview';
+export const DELETE_REVIEW = 'reviews/deleteReview';
+export const All_SPOT_REVIEWS = 'reviews/allSpotReviews';
 
 
-export function postReview(review) {
-    return {
-        type: POST_REVIEW,
-        review
-    }
-}
+const postReview = ( spotId, review) => ({
+    type: POST_REVIEW,
+        review,
+        spotId
+});
 
-export function deleteReview(reviewId) {
-    return {
-        type: DELETE_REVIEW,
-        reviewId
-    }
-}
+const deleteReview = (reviewId, spotId) => ({
+    type: DELETE_REVIEW,
+    reviewId,
+    spotId
+});
 
-export function spotReviews(reviews) {
-    return {
-        type: All_SPOT_REVIEWS,
+const spotReviews = (spotId, reviews) => ({
+    type: All_SPOT_REVIEWS,
         reviews
-    }
-}
+})
 
 
 export const allSpotReviews = (spotId) => async (dispatch) => {
     const res = await csrfFetch(`/api/spots/${spotId}/reviews`);
+
     if(res.ok) {
-        const data = await res.json();
-        dispatch(spotReviews(data.Reviews));
-        return data;
-    } else {
-        return res;
+        
     }
 }
 
