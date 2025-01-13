@@ -4,7 +4,7 @@ import { useDispatch} from 'react-redux';
 import { useModal } from '../../context/Modal'
 import './LoginForm.css';
 
-function LoginFormModal({setShowModal}) {
+function LoginFormModal() {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -23,16 +23,18 @@ function LoginFormModal({setShowModal}) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setErrors([]);
+    setErrors({});
     return dispatch(sessionActions.userLogin({ credential, password }))
-        .then(() => setShowModal(false))
+        .then(closeModal)
         .catch(async (res) => {
             const data = await res.json();
-            if (data && data.errors) {
-                setErrors([`username/email or password are incorrect!`]);
+            if(data && data.errors) {
+                setErrors(data.errors);
             }
-        })
-}
+        });
+};
+
+const isButtonDisabled = credential.length < 4 || password.length < 6;
 
 return (
   <div className='login-container'>
@@ -41,7 +43,7 @@ return (
       </div>
       <form onSubmit={handleSubmit} className='login-form'>
           <div className='login-welcome'>
-              <h3>Welcome to Hairbnb</h3>
+              <h3>Welcome to bb cribs</h3>
           </div>
 
           {errors.length > 0 &&
