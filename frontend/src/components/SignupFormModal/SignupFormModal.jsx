@@ -1,27 +1,25 @@
-import { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
+import { useState, useEffect } from 'react';
+import { useDispatch} from 'react-redux';
 import { useModal } from '../../context/Modal'
 import * as sessionActions from '../../store/session';
 import './SignupForm.css';
 
 function SignupFormModal() {
   const dispatch = useDispatch();
-  const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
 
-  if(sessionUser) {
-    return (
-      <Navigate to='/' />
-    )
-  }
+  useEffect(() => {
+    return () => {
+      setErrors({});
+    };
+  }, [closeModal]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -49,10 +47,15 @@ function SignupFormModal() {
     });
   };
 
+  const isFormValid = () => {
+    return email && username.length >= 4 && password.length >= 6
+          && firstName && lastName && confirmPassword;
+  }
+
   return (
     <div className='signup-container'>
       <div className='signup-header'>
-        <h2>Create Account Bub</h2>
+        <h2>Create an Account dood</h2>
       </div>
 
       <form onSubmit={handleSubmit} className='signup-form'>
@@ -74,6 +77,7 @@ function SignupFormModal() {
                     className='input-field'
                 />
             </label>
+            {errors.firstName && <p>{errors.firstName}</p>}
         </div>
         <div className='signup-field signup-lastname'>
             <label>
@@ -86,6 +90,7 @@ function SignupFormModal() {
                   className='input-field'
                 />
             </label>
+            {errors.lastName && <p>{errors.lastName}</p>}
         </div>
         <div className='signup-field signup-username'>
           <label>
@@ -98,6 +103,7 @@ function SignupFormModal() {
                 className='input-field'
              />
           </label>
+          {errors.username && <p>{errors.username}</p>}
         </div>
         <div className='signup-field signup-email'>
           <label>
@@ -110,6 +116,7 @@ function SignupFormModal() {
                   className='input-field'
               />
           </label>
+          {errors.email && <p>{errors.email}</p>}
         </div>
         <div>
             <label>
@@ -122,6 +129,7 @@ function SignupFormModal() {
                       className='input-field'
                   />
             </label>
+            {errors.password && <p>{errors.password}</p>}
         </div>
         <div className='signup-field signup-confirmedPassword'>
             <label>
@@ -134,8 +142,11 @@ function SignupFormModal() {
                     className='input-field'
                 />
             </label>
+            {errors.confirmPassword && (
+              <p>{errors.confirmPassword}</p>
+            )}
         </div>
-        <div className='signup-button'><button type='submit'>Sign Up</button></div>
+        <div className='signup-button'><button type='submit' disabled={!isFormValid()}>Sign Up</button></div>
         </div>
       </form>
     </div>
