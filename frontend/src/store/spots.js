@@ -51,33 +51,36 @@ export const allSpots = () => async (dispatch) => {
 };
 
 
-export const makeSpot = (spot) => async (dispatch) => {
-    const { name, description, address, city, country, state, lat, lng, price, url, preview } = spot;
-    const res = await csrfFetch(`/api/spots`, {
+export const makeSpot = (data) => async (dispatch, getState) => {
+    const state = getState;
+    if(!isLoggedIn(state)) {
+        alert("You must be logged in to add a spot.");
+        return;
+    }
+
+    const res = await csrfFetch('/api/spots', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, description, address, city, country, state, lat, lng, price })
+        body: JSON.stringify(data)
     });
+
     if(res.ok) {
-        const data  = await res.json();
-        const fetchImg = await csrfFetch(`/api/spots/${data.id}/images`, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ url, preview })
-        });
-        if(fetchImg.ok) {
-            const imgInfo = await fetchImg.json();
-            const imgUrl = imgInfo.url;
-            data.previewImage = imgUrl;
-            dispatch(newSpot(data));
-            return data;
+        const spot = await res.json();
+        dispatch(newSpot(spot));
+
+        if(data.imageUrls && data.imageUrls.length > 0) {
+            await dispatch(uploadSpotImage(spot.id, data.imageUrls));
         }
+        return spot;
     }
-}
+    else {
+        const errorData = await res.json();
+        console.error('Error creating spot:', errorData);
+        throw new Error("Failed to create spot");
+    }
+};
 
 
 export const modifySpot = (spotId, data) => async (dispatch, getState) => {
@@ -102,41 +105,67 @@ export const modifySpot = (spotId, data) => async (dispatch, getState) => {
     }
 };
 
-export const destroySpot = (spot) => async (dispatch) => {
-    const spotId = spot.id;
-    const res = await csrfFetch(`/api/spots/${spotId}`, {
-        method: 'DELETE',
-    });
-    if(res.ok) {
-        const data = await res.json();
-        dispatch(deleteSpot(spotId))
-        return data;
-    } else {
-        return res;
+
+export const uploadSpotImage = (spotId, imageUrls, previewImage) => async (dispatch) => {
+    if(previewImage) {
+        try {
+            const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ url: previewImage, preview: true }),
+            });
+
+            const newPreviewImage = await res.json();
+            dispatch(addSpotImage(newPreviewImage, spotId));
+        } catch(error) {
+            throw new Error(error.message || "Failed to upload previe image");
+        }
     }
-}
 
-export const spotFilter = (query) => async (dispatch) => {
-    const { minPrice, maxPrice } = query;
-        const res = await fetch(`/api/spots/?minPrice=${minPrice}&maxPrice=${maxPrice}`);
-        const data = await res.json();
-        dispatch(filterSpots(data));
-        return data;
-}
+    const promises = imageUrls.map ((url) =>
+        csrfFetch(`/api/spots/${spotId}/images`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url, preview: false }),
+        })
+    );
 
-export const fetchOneSpot = (spotId) => async (dispatch) => {
-    const response = await fetch(`/api/spots/${spotId}`);
-    const data = await response.json();
-    dispatch(displayDetailedSpot(data));
-}
+    try {
+        const responses = await Promise.all(promises);
+        const newImages = await Promise.all(responses.map(res => res.json()));
+        newImages.forEach(newImage => {
+            dispatch(addSpotImage(newImage, spotId));
+        });
+    } catch (error) {
+        throw new Error(error.message || 'Failed to upload additional images');
+    }
+};
 
-let initialState = {
-    allSpots: {},
-    oneSpot: {}
-}
+export const destroySpot = (spotId) => async (dispatch, getState) => {
+    const state = getState();
+    if(!isLoggedIn(state)) {
+        alert("You must be logged in to remove a spot.");
+        return;
+    }
+
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'DELETE'
+    });
+
+    if(res.ok) {
+        dispatch(deleteSpot(spotId));
+    }
+};
+
+
+const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-    let newState;
+    
     switch (action.type) {
         case LOAD_All_SPOTS: {
             newState = { allSpots: {}, oneSpot: {}};
