@@ -2,32 +2,41 @@ import { csrfFetch } from './csrf';
 
 const LOGIN = "session/login";
 const LOGOUT = "session/logout";
+const LOGIN_DEMO_USER = "session/loginDemoUser";
 
-export function login(user) {
+const login = (user) => {
   return {
     type: LOGIN,
     payload: user
-  }
-}
+  };
+};
 
-export function logout(user) {
+const logout = (user) => {
   return {
     type: LOGOUT,
     user
   };
-}
+};
+
+const loginDemorUser = (user) => {
+  return {
+    type: LOGIN_DEMO_USER,
+    payload: user,
+  };
+};
 
 export const userLogin = (user) => async (dispatch) => {
-  const res = await csrfFetch(`/api/session`, {
-    method: 'POST',
-    headers: {
-        'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(user)
-});
-const data = await res.json();
-dispatch(login(data.user));
-return res;
+  const { credential, password } = user;
+  const res = await csrfFetch("/api/session", {
+    method: "POST",
+    body: JSON.stringify({
+      credential,
+      password
+    })
+  });
+  const data = await res.json();
+  dispatch(login(data.user));
+  return res;
 };
 
 export const restoreUser = () => async (dispatch) => {
@@ -37,13 +46,29 @@ export const restoreUser = () => async (dispatch) => {
   return res;
   };
 
+  export const demoLogin = () => async (dispatch) => {
+    const demoCreds = {
+      credential: 'Demo',
+      password: 'passwordDemo'
+    };
+
+    const res = await csrfFetch("/api/session", {
+      method: 'POST',
+      body: JSON.stringify(demoCreds),
+    });
+
+    if(res.ok) {
+      const data = await res.json();
+      dispatch(loginDemorUser(data.user));
+    } else {
+      console.error("Demo login failed")
+    }
+  };
+
   export const signup = (user) => async (dispatch) => {
     const { firstName, lastName, password, username, email } = user;
-    const res = await csrfFetch(`/api/users`, {
+    const res = await csrfFetch("/api/users", {
         method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
         body: JSON.stringify({firstName, lastName, password, username, email})
     });
     const data = await res.json();
@@ -52,7 +77,7 @@ export const restoreUser = () => async (dispatch) => {
   };
 
   export const userLogout = () => async (dispatch) => {
-    const res = await csrfFetch(`/api/session`, {
+    const res = await csrfFetch("/api/session", {
       method: 'DELETE',
   });
   dispatch(logout());
@@ -64,7 +89,8 @@ const initialState = { user: null };
 const sessionReducer = (state = initialState, action) => {
   switch (action.type) {
     case LOGIN:
-      return { ...state, user: action.payload };
+      case LOGIN_DEMO_USER:
+        return {...state, user: action.payload};
     case LOGOUT:
       return { ...state, user: null };
     default:
