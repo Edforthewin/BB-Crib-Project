@@ -4,6 +4,7 @@ import { createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation/Navigation';
 import NewSpot from './components/NewSpot/NewSpot';
+import Footer from './components/Footer/index'
 
 import './index.css'
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     element: <Layout />,
     children: [
+      {
+        path: '/',
+        element: <Footer/>
+      },
       {
         path: '/spots/new',
         element: <NewSpot/>
