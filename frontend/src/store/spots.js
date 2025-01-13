@@ -46,7 +46,7 @@ export const allSpots = () => async (dispatch) => {
     const res = await fetch('api/spots');
     if(res.ok) {
         const spots = await res.json();
-        dispatch(LOAD_All_SPOTS(spots));
+        dispatch(showSpots(spots));
     }
 };
 
@@ -165,57 +165,50 @@ export const destroySpot = (spotId) => async (dispatch, getState) => {
 const initialState = {};
 
 const spotsReducer = (state = initialState, action) => {
-    
+
     switch (action.type) {
         case LOAD_All_SPOTS: {
-            newState = { allSpots: {}, oneSpot: {}};
-
-            for(let spot of action.spots) {
-                newState.allSpots[spot.id] = spot
-            }
-            return newState;
+            const newSpots = {};
+            action.spots.forEach(spot => {
+                newSpots[spot.id] = {
+                    ...spot,
+                };
+            });
+            return {
+                ...state,
+                ...newSpots
+            };
         }
 
-        case NEW_SPOT: {
-            newState = { ...state };
-            const spot = action.spot;
-            newState.allSpots[spot.id] = spot;
-            return newState;
+        case NEW_SPOT:
+        case EDIT_SPOT: {
+            return {
+                 ...state,
+                [action.spot.id]: {
+                    ...action.spot,
+                    spotImages: action.spot.spotImages || [],
+                }
+            }
         }
 
         case DELETE_SPOT: {
-            newState = { ...state };
-            delete newState.allSpots[action.spotId];
+            const newState = {...state };
+            delete newState[action.spotId];
             return newState;
         }
 
-        case DETAIL_SPOT: {
-            newState = { ...state};
-            const spot = action.spot;
-            newState.oneSpot = spot;
-            return newState;
-        }
-        case USER_SPOT: {
-            newState = {allSpots: {}, oneSpot: {}};
-            for(let spot of action.spots) {
-                newState.allSpots[spot.id] = spot
+        case ADD_SPOT_IMAGE: {
+            const spotId = action.image.spotId;
+            return {
+                ...state,
+                [spotId]: {
+                    ...state[spotId],
+                    spotImages: [...(state[spotId]?.spotImages || [], action.image)]
+                }
             }
-            return newState;
         }
-        case EDIT_SPOT: {
-            newState = { ...state };
-            const spot = action.spot;
-            newState.allSpots[spot.id] = spot;
-            return newState;
-        }
-        case FILTER_SPOTS: {
-            newState = {allSpots: {}, oneSpot: {}};
-            const filteredSpot = action.spots.Spots;
-            for(let spot of filteredSpot) {
-                newState.allSpots[spot.id] = spot
-            }
-            return newState;
-        }
+
+
         default:
             return state
     }
