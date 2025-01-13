@@ -1,10 +1,6 @@
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { useState} from 'react'
-import { Modal } from '../../context/Modal';
 import ProfileButton from './ProfileButton';
-import SignupFormModal from '../SignupFormModal/SignupFormModal';
-import LoginFormModal from '../LoginFormModal/LoginFormModal';
 import NewSpot from '../NewSpot/NewSpot';
 import LabelledButton from '../LabelledButton/index';
 import logo from './BB-cribz.png';
@@ -13,8 +9,6 @@ import './Navigation.css';
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector(state => state.session.user);
-  const [showModal, setShowModal] = useState(false);
-  const [login, setLogin] = useState(true);
 
 
   return (
@@ -48,22 +42,13 @@ function Navigation({ isLoaded }) {
       <div className='navigation-bar'>
         {isLoaded && (
           <>
-          <ProfileButton
-              user={sessionUser}
-              setLogin={setLogin}
-              setShowModal={setShowModal}
-          />
+          <ProfileButton user={sessionUser}/>
               <div className='link-createspot'>
                   <NewSpot/>
               </div>
           </>
         )}
       </div>
-      {showModal && (
-          <Modal onClose={() => setShowModal(false)}>
-              {login ? <LoginFormModal setShowModal={setShowModal}/> : <SignupFormModal setShowModal={setShowModal}/>}
-          </Modal>
-      )}
     </div>
   );
 }
