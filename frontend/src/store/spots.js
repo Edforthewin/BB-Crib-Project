@@ -96,9 +96,11 @@ export const modifySpot = (spotId, data) => async (dispatch, getState) => {
     });
 
     if(res.ok) {
-        const spot =
+        const spot = await res.json();
+        dispatch(editSpot(spot));
+        return spot;
     }
-}
+};
 
 export const destroySpot = (spot) => async (dispatch) => {
     const spotId = spot.id;
