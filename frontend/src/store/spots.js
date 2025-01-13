@@ -1,80 +1,53 @@
 import { csrfFetch } from "./csrf";
 
-const LOAD_All_SPOTS ='spots/loadAllSpots';
-const NEW_SPOT = 'spots/newSpot';
-const DELETE_SPOT = 'spots/deleteSpot';
-const DETAIL_SPOT = 'spots/detailSpot';
-const USER_SPOT = 'spots/userSpots';
-const EDIT_SPOT = 'spots/editSpots';
-const FILTER_SPOTS = 'spots/filterSpots';
-const LOAD_DETAIL_SPOT = 'spots/loadDetailSpot';
+export const LOAD_All_SPOTS ='spots/loadAllSpots';
+export const NEW_SPOT = 'spots/newSpot';
+export const DELETE_SPOT = 'spots/deleteSpot';
+export const EDIT_SPOT = 'spots/editSpots';
+export const ADD_SPOT_IMAGE = 'spots/addSpotImage'
 
 
 
-export function showSpots(spots) {
-    return {
+const showSpots = (spots) => ({
         type: LOAD_All_SPOTS,
-        spots
-    }
-}
+        spots: spots.Spots
+})
 
-export function newSpot(spot) {
-    return {
+const newSpot = (spot) => ({
         type: NEW_SPOT,
         spot
-    }
-}
+});
 
-export function deleteSpot(spotId) {
-    return {
+const editSpot = (spot) => ({
+    type: EDIT_SPOT,
+    spot
+});
+
+const addSpotImage = (image, spotId) => ({
+    type: ADD_SPOT_IMAGE,
+    image: {
+        ...image,
+        spotId,
+    }
+});
+
+const deleteSpot = (spotId) => ({
         type: DELETE_SPOT,
         spotId
-    }
-}
+});
 
-export function displayDetailedSpot(spot) {
-    return {
-        type: LOAD_DETAIL_SPOT,
-        spot
-    }
+const isLoggedIn = (state) => {
+    return state.session.user !== null;
 }
-
-export function editSpot(spot) {
-    return {
-        type: EDIT_SPOT,
-        spot
-    }
-}
-
-export function spotDetails(spot) {
-    return {
-        type: DETAIL_SPOT,
-        spot
-    }
-}
-
-export function userSpots(spots) {
-    return {
-        type: USER_SPOT,
-        spots
-    }
-}
-
-export function filterSpots(spots) {
-    return {
-        type: FILTER_SPOTS,
-        spots
-    }
-}
-
 
 
 
 export const allSpots = () => async (dispatch) => {
     const res = await fetch('api/spots');
-    const spotsInfo = await res.json();
-    dispatch(showSpots(spotsInfo.Spots));
-    return res;
+    if(res.ok) {
+        const spots = await res.json();
+        dispatch(LOAD_All_SPOTS(spots));
+    }
 };
 
 
@@ -107,31 +80,23 @@ export const makeSpot = (spot) => async (dispatch) => {
 }
 
 
-export const showSpotDetails = (spotId) => async (dispatch) => {
-    const res = await fetch(`/api/spots/${spotId}`);
-    const data = await res.json();
-    dispatch(spotDetails(data));
-}
+export const modifySpot = (spotId, data) => async (dispatch, getState) => {
+    const state = getState();
+    if(!isLoggedIn(state)) {
+        alert("You must be logged in to update a spot.");
+        return;
+    }
 
-export const allUserSpots = () => async (dispatch) => {
-    const res = await fetch(`/api/spots/current`);
-    const data = await res.json();
-    dispatch(userSpots(data.Spots));
-}
-
-export const modifySpot = (spot) => async (dispatch) => {
-    const { name, description, address, city, country, state, lat, lng, price } = spot;
-    const res = await csrfFetch(`'/api/spots/${spot.id}`, {
-        method: 'POST',
+    const res = await csrfFetch(`/api/spots/${spotId}`, {
+        method: 'PUT',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ name, description, address, city, country, state, lat, lng, price })
-    })
+        body: JSON.stringify(data)
+    });
+
     if(res.ok) {
-        const data = await res.json();
-        dispatch(editSpot(data));
-        return data;
+        const spot =
     }
 }
 
