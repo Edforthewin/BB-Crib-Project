@@ -43,15 +43,12 @@ return (
       </div>
       <form onSubmit={handleSubmit} className='login-form'>
           <div className='login-welcome'>
-              <h3>Welcome to bb cribs</h3>
+              <h3>Welcome to BB-Cribs</h3>
           </div>
 
-          {errors.length > 0 &&
-              <ul>
-                  {errors.map(error =>
-                      <li key={error}>{error}</li>)}
-              </ul>
-          }
+          {errors.credential && (
+          <p>{errors.credential}</p>
+        )}
 
           <div className='login-info'>
               <div className='login-name'>
@@ -61,7 +58,7 @@ return (
                           value={credential}
                           onChange={(e) => setCredential(e.target.value)}
                           required
-                          placeholder='username/email'
+                          placeholder='Username or email'
                           className='login-input login-input-email'
                       />
                   </label>
@@ -73,16 +70,21 @@ return (
                           value={password}
                           onChange={(e) => setPassword(e.target.value)}
                           required
-                          placeholder='password '
+                          placeholder='Password'
                           className='login-input'
                       />
                   </label>
               </div>
           </div>
           <div className='login-button'>
-              <button className='login-button' type='submit'>Log in</button>
+              <button className='login-button' type='submit' disabled={isButtonDisabled}>Log in</button>
           </div>
       </form>
+      <div className='demo-link-container'>
+        <span className='demo-link' onClick={handleDemoLogin}>
+            Demo User
+        </span>
+      </div>
   </div>
 )
 }
