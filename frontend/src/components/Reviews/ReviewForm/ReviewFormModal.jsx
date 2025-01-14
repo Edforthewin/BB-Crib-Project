@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import './ReviewFormModal.css';
 
 const  ReviewModal = ({ isOpen, onClose, onSubmit }) => {
     const [reviewText, setReviewText] = useState('');
@@ -33,7 +34,7 @@ const  ReviewModal = ({ isOpen, onClose, onSubmit }) => {
           setError('Review already exists for this spot.');
         }
       } else {
-        setError("Please provide a valid comment adn start rating.")
+        setError("Please provide a valid comment and start rating.")
       }
     };
 

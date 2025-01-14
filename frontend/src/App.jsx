@@ -5,7 +5,8 @@ import * as sessionActions from './store/session';
 import Navigation from './components/Navigation/Navigation';
 import NewSpot from './components/NewSpot/NewSpot';
 import Footer from './components/Footer/index';
-import UserProfile from './components/UserProfile/UserProfile'
+import UserProfile from './components/UserProfile/UserProfile';
+import SpotsLayout from './components/LandingPage/SpotsLayout';
 
 
 import './index.css'
@@ -34,7 +35,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <Footer/>
+        element: <SpotsLayout/> &&<Footer/>
       },
       {
         path: '/spots/new',
