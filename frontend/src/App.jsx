@@ -4,13 +4,11 @@ import { createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation/Navigation';
 import NewSpot from './components/NewSpot/NewSpot';
-import Footer from './components/Footer/index';
+// import Footer from './components/Footer/index';
 import SpotsLayout from './components/LandingPage/SpotsLayout';
 import ManageSpots from './components/ManageSpots/ManageSpots';
 import UpdateSpot from './components/ManageSpots/UpdateSpot';
 import SpotDetails from './components/SpotDetails/SpotDetails';
-
-
 import './index.css'
 
 function Layout() {
@@ -18,7 +16,8 @@ function Layout() {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    dispatch(sessionActions.restoreUser()).then(() => {
+    dispatch(sessionActions.restoreUser())
+    .then(() => {
       setIsLoaded(true)
     });
   }, [dispatch]);
@@ -37,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <SpotsLayout/> && <Footer/>
+        element: <h1><SpotsLayout/></h1>
       },
       {
         path: '/spots/:spotId',
