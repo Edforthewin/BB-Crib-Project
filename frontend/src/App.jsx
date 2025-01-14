@@ -5,8 +5,10 @@ import * as sessionActions from './store/session';
 import Navigation from './components/Navigation/Navigation';
 import NewSpot from './components/NewSpot/NewSpot';
 import Footer from './components/Footer/index';
-import UserProfile from './components/UserProfile/UserProfile';
 import SpotsLayout from './components/LandingPage/SpotsLayout';
+import ManageSpots from './components/ManageSpots/ManageSpots';
+import UpdateSpot from './components/ManageSpots/UpdateSpot';
+import SpotDetails from './components/SpotDetails/SpotDetails';
 
 
 import './index.css'
@@ -38,12 +40,20 @@ const router = createBrowserRouter([
         element: <SpotsLayout/> && <Footer/>
       },
       {
+        path: '/spots/:spotId',
+        element: <SpotDetails/>
+      },
+      {
         path: '/spots/new',
         element: <NewSpot/>
       },
       {
-        path: '/bookings',
-        element: <UserProfile/>
+        path: '/spots/current',
+        element: <ManageSpots/>
+      },
+      {
+        path: '/spots/:spotId/edit',
+        element: <UpdateSpot/>
       }
     ]
   }
