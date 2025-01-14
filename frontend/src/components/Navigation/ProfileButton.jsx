@@ -14,9 +14,8 @@ function ProfileButton({ user }) {
   const ulRef = useRef();
 
   useEffect(() => {
-    if(!showMenu) {
-      return;
-    }
+    if(!showMenu) return;
+
     const closeMenu = (e) => {
       if(!ulRef.current.contains(e.target)) {
         setShowMenu(false);
@@ -43,74 +42,48 @@ function ProfileButton({ user }) {
     window.location.href = '/';
   };
 
-  // const ulClassName = 'profile-button' + (showMenu ? "": " hidden");
-
-  const handleDemoButton = (e) => {
-    e.preventDefault();
-    return dispatch(sessionActions.userLogin({
-      credential: "Demo-lition",
-      password: 'password'
-    }))
-      .then(() => setShowMenu(false));
-  }
+  const ulClassName = 'profile-button' + (showMenu ? "": " hidden");
 
   return (
     <>
-      <div className='profile-button'>
-          <button onClick={toggleMenu}>
-          <i className='fa-solid fa-bars menu-button'></i>
-            <i className='fas fa-user-circle'></i>
-          </button>
-      </div>
-      {showMenu && (user ?
-        <div className='dropdown'>
-            <ul className='profile-dropdown'>
-                <div className='dropdown-user' ref={ulRef}>
-                    <div>
-                      Hello, {user.firstname}
-                    </div>
-                    <div>
-                       {user.email}
-                    </div>
-                </div>
-                <div>
-                    <NavLink to='/spots/current' className='hosting'>Manage Spots</NavLink>
-                </div>
-                <div className="dropdown-link">
-                      <NavLink to='/bookings' className="hosting">My bookings</NavLink>
-                </div>
-                <div className='dropdown-link'>
-                  <button onClick={logout} className='dropdown-button'>Sign out</button>
-                </div>
-            </ul>
-        </div>: (
-          <div className='dropdown'>
-            <ul className='profile-dropdown'>
-                <li>
-                    <OpenModalButton
-                      buttonText="Login"
-                      onButtonClick={closeMenu}
-                      modalComponent={<LoginFormModal/>}
-                    className='dropdown-button'
-                    />
-                </li>
-                <li>
-                     <OpenModalButton
-                      buttonText="Sign Up"
-                      onButtonClick={closeMenu}
-                      modalComponent={<SignupFormModal/>}
-                    className='dropdown-button'
-                    />
-                </li>
-                <li>
-                    <button onClick={handleDemoButton} className='dropdown-button'>Demo User</button>
-                </li>
-            </ul>
-          </div>
-        )
-      )}
-    </>
-  )
+      <button onClick={toggleMenu}>
+      </button>
+      <ul className={ulClassName} ref={ulRef}>
+        {user ? (
+          <>
+            <li>Greetings, {user.username}! </li>
+            <li>{user.firstName} {user.lastName}</li>
+            <li>{user.email}</li>
+            <li>
+                <NavLink to="/spots/current" className="profile-manage" onClick={closeMenu}>Manage Spots</NavLink>
+            {/* <button onClick={handleManageSpots}>Manage Spots</button> */}
+
+        </li>
+        <li>
+          <button onClick={logout}>Log Out</button>
+        </li>
+      </>
+    ) : (
+      <>
+        <li>
+          <OpenModalButton
+            buttonText="Log In"
+            onButtonClick={closeMenu}
+            modalComponent={<LoginFormModal />}
+          />
+        </li>
+        <li>
+          <OpenModalButton
+            buttonText="Sign Up"
+            onButtonClick={closeMenu}
+            modalComponent={<SignupFormModal />}
+          />
+        </li>
+      </>
+    )}
+  </ul>
+</>
+);
 
 }
 

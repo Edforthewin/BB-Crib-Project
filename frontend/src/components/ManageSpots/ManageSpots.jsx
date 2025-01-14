@@ -50,10 +50,10 @@ function ManageSpots(){
     return (
         <div className="manage-spots-layout">
             <h1>Managed Spots</h1>
-                                    <div className="manage-spot-createbtn"> <button className="ManageCreate" onClick={(e) => {
-                                            e.stopPropagation();
-                                            navigate(`/spots/new`);
-                                        }}>Create a New Spot</button></div>
+            <div className="manage-spot-createbtn"> <button className="ManageCreate" onClick={(e) => {
+                e.stopPropagation();
+                navigate(`/spots/new`);
+                }}>Create a New Spot</button></div>
 
             {spots.length === 0 ? (
                 <p>You don&apos;t have any spots listed. Create a new spot!</p>
