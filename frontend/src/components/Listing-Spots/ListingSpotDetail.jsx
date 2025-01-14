@@ -1,9 +1,7 @@
-import { useEffect } from 'react';
-import { fetchOneSpot } from '../../store/spots';
+import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import * as reviewsAction from '../../store/review';
-import * as bookingAction from '../../store/booking'
 import ReviewSpotModal from "../Reviews/ReviewForm/ReviewFormModal";
 import DeleteReviewModal from "../Reviews/DeleteReviewModal";
 import './ListingSpotDetail.css';

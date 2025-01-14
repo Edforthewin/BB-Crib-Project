@@ -1,7 +1,6 @@
 import { csrfFetch} from './csrf';
 
 
-
 export const POST_REVIEW = 'reviews/postReview';
 export const DELETE_REVIEW = 'reviews/deleteReview';
 export const All_SPOT_REVIEWS = 'reviews/allSpotReviews';

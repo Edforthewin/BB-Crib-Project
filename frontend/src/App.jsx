@@ -4,7 +4,9 @@ import { createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation/Navigation';
 import NewSpot from './components/NewSpot/NewSpot';
-import Footer from './components/Footer/index'
+import Footer from './components/Footer/index';
+import UserProfile from './components/UserProfile/UserProfile'
+
 
 import './index.css'
 
@@ -37,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/spots/new',
         element: <NewSpot/>
+      },
+      {
+        path: '/bookings',
+        element: <UserProfile/>
       }
     ]
   }
