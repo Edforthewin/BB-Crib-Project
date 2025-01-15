@@ -11,10 +11,9 @@ const login = (user) => {
   };
 };
 
-const logout = (user) => {
+const logout = () => {
   return {
     type: LOGOUT,
-    user
   };
 };
 

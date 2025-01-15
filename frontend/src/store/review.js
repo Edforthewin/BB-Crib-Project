@@ -3,7 +3,7 @@ import { csrfFetch} from './csrf';
 
 export const POST_REVIEW = 'reviews/postReview';
 export const DELETE_REVIEW = 'reviews/deleteReview';
-export const All_SPOT_REVIEWS = 'reviews/allSpotReviews';
+export const ALL_REVIEWS = 'reviews/allSpotReviews';
 
 
 const postReview = ( spotId, review) => ({
@@ -19,8 +19,9 @@ const deleteReview = (reviewId, spotId) => ({
 });
 
 const spotReviews = (spotId, reviews) => ({
-    type: All_SPOT_REVIEWS,
-        reviews
+    type: ALL_REVIEWS,
+        reviews,
+        spotId
 })
 
 
@@ -75,7 +76,7 @@ let initialState = {};
 
 const reviewsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case All_SPOT_REVIEWS:
+        case ALL_REVIEWS:
             return {...state, [action.reviews.spotId]: action.reviews};
 
 
@@ -93,7 +94,7 @@ const reviewsReducer = (state = initialState, action) => {
            };
         }
         default:
-        return state
+        return state;
     }
 };
 

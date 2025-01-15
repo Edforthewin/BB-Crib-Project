@@ -1,15 +1,15 @@
 import { csrfFetch } from "./csrf";
 
-export const LOAD_All_SPOTS ='spots/loadAllSpots';
+export const LOAD_SPOTS ='spots/loadAllSpots';
 export const NEW_SPOT = 'spots/newSpot';
 export const DELETE_SPOT = 'spots/deleteSpot';
-export const EDIT_SPOT = 'spots/editSpots';
+export const EDIT_SPOT = 'spots/editSpot';
 export const ADD_SPOT_IMAGE = 'spots/addSpotImage'
 
 
 
 const showSpots = (spots) => ({
-        type: LOAD_All_SPOTS,
+        type: LOAD_SPOTS,
         spots: spots.Spots
 })
 
@@ -38,7 +38,7 @@ const deleteSpot = (spotId) => ({
 
 const isLoggedIn = (state) => {
     return state.session.user !== null;
-}
+};
 
 
 
@@ -52,7 +52,7 @@ export const allSpots = () => async (dispatch) => {
 
 
 export const makeSpot = (data) => async (dispatch, getState) => {
-    const state = getState;
+    const state = getState();
     if(!isLoggedIn(state)) {
         alert("You must be logged in to add a spot.");
         return;
@@ -167,7 +167,7 @@ const initialState = {};
 const spotsReducer = (state = initialState, action) => {
 
     switch (action.type) {
-        case LOAD_All_SPOTS: {
+        case LOAD_SPOTS: {
             const newSpots = {};
             action.spots.forEach(spot => {
                 newSpots[spot.id] = {
@@ -203,15 +203,15 @@ const spotsReducer = (state = initialState, action) => {
                 ...state,
                 [spotId]: {
                     ...state[spotId],
-                    spotImages: [...(state[spotId]?.spotImages || [], action.image)]
+                    spotImages: [...(state[spotId]?.spotImages || []), action.image]
                 }
             }
         }
 
 
         default:
-            return state
+            return state;
     }
 }
 
-export default spotsReducer
+export default spotsReducer;
