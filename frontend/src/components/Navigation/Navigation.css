@@ -72,6 +72,21 @@
 
 }
 
+.createspot{
+    width:20%;
+    text-align: right;
+  }
+
+    .create-spot-link {
+      margin-right: 20px; /* Space between create link and profile button */
+      text-decoration: none; /* Remove underline */
+      color: #66300c; /* Link color */
+    }
+
+    .create-spot-link:hover {
+      text-decoration: underline; /* Underline on hover */
+    }
+
 .button-search {
     height: 25px;
     width: 25px;

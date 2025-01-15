@@ -4,7 +4,7 @@ import { allSpots, destroySpot } from '../../store/spots';
 import { NavLink, useNavigate } from 'react-router-dom';
 import './ManageSpots.css';
 
-function ManageSpots(){
+const ManageSpots = () => {
     const sessionUser = useSelector((state) => state.session.user)
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -139,4 +139,4 @@ function ManageSpots(){
 }
 
 
-export default ManageSpots
+export default ManageSpots;

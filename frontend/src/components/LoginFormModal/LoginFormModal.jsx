@@ -43,13 +43,8 @@ return (
       </div>
       <form onSubmit={handleSubmit} className='login-form'>
           <div className='login-welcome'>
-              <h3>Welcome to BB-Cribs</h3>
+              <h3>Welcome to BB-Cribz</h3>
           </div>
-
-          {errors.credential && (
-          <p>{errors.credential}</p>
-        )}
-
           <div className='login-info'>
               <div className='login-name'>
                   <label>
@@ -74,6 +69,9 @@ return (
                           className='login-input'
                       />
                   </label>
+                  {errors.credential && (
+                  <p>{errors.credential}</p>
+                   )}
               </div>
           </div>
           <div className='login-button'>
