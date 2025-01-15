@@ -7,7 +7,7 @@ import './NewSpot.css';
 
 
 
-function NewSpotFormModal() {
+function NewSpot() {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
@@ -43,7 +43,7 @@ function NewSpotFormModal() {
         if(desription.length < 30) newErrors.desription = "Description needs 30 or more characters.";
         if(!name) newErrors.name = "Name is required";
         if(!price) newErrors.price = "Price per night is required.";
-        if (!lat || lat< -90 || lat > 90) newErrors.lat = "Latitude must be between -90 and 90.";
+        if (!lat || lat < -90 || lat > 90) newErrors.lat = "Latitude must be between -90 and 90.";
         if (!lng || lng < -180 || lng > 180) newErrors.lng = "Longitude must be between -180 and 180.";
         if (!previewImage) newErrors.previewImage = "Preview image is required.";
 
@@ -263,4 +263,4 @@ function NewSpotFormModal() {
 }
 
 
-export default NewSpotFormModal;
+export default NewSpot;
