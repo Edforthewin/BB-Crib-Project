@@ -79,7 +79,7 @@ function NewSpot() {
             const result = await dispatch(makeSpot(data));
 
             if(result && result.id) {
-                await dispatch(uploadSpotImage(result.id, imageUrls, previewImage));
+                dispatch(uploadSpotImage(result.id, imageUrls, previewImage));
                 alert("Spot successfully created!");
                 navigate(`/spots/${result.id}`);
             } else {

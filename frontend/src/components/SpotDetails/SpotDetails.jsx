@@ -26,7 +26,7 @@ const SpotDetails = () => {
             stars: reviewData.stars,
         };
 
-        const postNewReview = await dispatch(newReview(spotId, reviewPayload));
+        const postNewReview = dispatch(newReview(spotId, reviewPayload));
 
         if (postNewReview && postNewReview.User) {
             const updatedReviews = [...reviews, postNewReview];
@@ -67,7 +67,7 @@ const SpotDetails = () => {
 
     const confirmDeleteReview = async () => {
         if(reviewToDelete) {
-            const response = await dispatch(destroyReview(reviewToDelete, spotId));
+            const response = dispatch(destroyReview(reviewToDelete, spotId));
             if(response.ok) {
                 const updatedReviews = reviews.filter(review => review.id !== reviewToDelete);
                 setReviews(updatedReviews);
