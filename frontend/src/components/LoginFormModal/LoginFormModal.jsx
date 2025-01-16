@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import * as sessionActions from '../../store/session';
-import { useDispatch} from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { useModal } from '../../context/Modal'
 import './LoginForm.css';
 
@@ -13,7 +13,7 @@ function LoginFormModal() {
 
   const handleDemoLogin = async () => {
     try {
-        await dispatch(sessionActions.demoLogin());
+        dispatch(sessionActions.demoLogin());
         closeModal();
     } catch (error) {
         console.error("Demo login failed", error);
@@ -43,7 +43,7 @@ return (
       </div>
       <form onSubmit={handleSubmit} className='login-form'>
           <div className='login-welcome'>
-              <h3>Welcome to BB-Cribz</h3>
+              <h3>Welcome to BB-Cribs</h3>
           </div>
           <div className='login-info'>
               <div className='login-name'>
