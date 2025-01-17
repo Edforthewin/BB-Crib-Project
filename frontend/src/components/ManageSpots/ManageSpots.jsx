@@ -5,7 +5,7 @@ import { NavLink, useNavigate } from 'react-router-dom';
 import './ManageSpots.css';
 
 const ManageSpots = () => {
-    const sessionUser = useSelector((state) => state.session.user)
+    const sessionUser = useSelector(state => state.session.user)
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -83,7 +83,7 @@ const ManageSpots = () => {
                                 </div>
 
                                 <div className="spotGridDetails">
-                                    <p>${spot.price} night</p>
+                                    <p>${spot.price} /night</p>
                                 </div>
 
                                 <div className="spotButtons">

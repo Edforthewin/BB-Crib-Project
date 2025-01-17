@@ -1,6 +1,6 @@
 import { csrfFetch } from "./csrf";
 
-export const LOAD_SPOTS ='spots/loadAllSpots';
+export const LOAD_SPOTS ='spots/loadSpots';
 export const NEW_SPOT = 'spots/newSpot';
 export const DELETE_SPOT = 'spots/deleteSpot';
 export const EDIT_SPOT = 'spots/editSpot';
@@ -188,7 +188,7 @@ const spotsReducer = (state = initialState, action) => {
                     ...action.spot,
                     spotImages: action.spot.spotImages || [],
                 }
-            }
+            };
         }
 
         case DELETE_SPOT: {
@@ -203,15 +203,15 @@ const spotsReducer = (state = initialState, action) => {
                 ...state,
                 [spotId]: {
                     ...state[spotId],
-                    spotImages: [...(state[spotId]?.spotImages || []), action.image]
-                }
-            }
+                    spotImages: [...(state[spotId]?.spotImages || []), action.image],
+                },
+            };
         }
 
 
         default:
             return state;
     }
-}
+};
 
 export default spotsReducer;
