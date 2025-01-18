@@ -48,7 +48,7 @@ const UpdateSpot = () => {
             price: parseFloat(price,)
         };
 
-        const result = await dispatch(modifySpot(spotId, updatedSpot));
+        const result = dispatch(modifySpot(spotId, updatedSpot));
 
         if(result && result.errors) {
             setErrors(result.errors);

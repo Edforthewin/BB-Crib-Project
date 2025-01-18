@@ -76,7 +76,7 @@ function NewSpot() {
         };
 
         try {
-            const result = await dispatch(makeSpot(data));
+            const result = dispatch(makeSpot(data));
 
             if(result && result.id) {
                 dispatch(uploadSpotImage(result.id, imageUrls, previewImage));
