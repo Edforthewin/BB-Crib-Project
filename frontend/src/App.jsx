@@ -4,7 +4,7 @@ import { createBrowserRouter, RouterProvider, Outlet} from 'react-router-dom';
 import * as sessionActions from './store/session';
 import Navigation from './components/Navigation/Navigation';
 import NewSpot from './components/NewSpot/NewSpot';
-import Footer from './components/Footer/index';
+// import Footer from './components/Footer/index';
 import SpotsLayout from './components/LandingPage/SpotsLayout';
 import ManageSpots from './components/ManageSpots/ManageSpots';
 import UpdateSpot from './components/ManageSpots/UpdateSpot';
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
     children: [
       {
         path: '/',
-        element: <SpotsLayout/> && <Footer/>
+        element: <SpotsLayout/>
       },
       {
         path: '/spots/:spotId',
